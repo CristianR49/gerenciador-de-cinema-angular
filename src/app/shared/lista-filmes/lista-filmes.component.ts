@@ -16,7 +16,7 @@ export class ListaFilmesComponent {
   constructor(private filmeService: FilmeService){}
 
   ngOnInit(): void {
-    this.carregarPagina(10);
+    this.carregarPagina(1);
   }
 
   carregarPagina(paginaAlterada: number){

@@ -1,51 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmeService } from '../../../services/filme.service';
 import { Filme } from 'src/app/models/filme';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-filme-listagem',
   templateUrl: './filme-listagem.component.html',
   styleUrls: ['./filme-listagem.component.css'],
 })
-export class FilmeListagemComponent {
-  filme: Filme;
-  filmesPopulares: Filme[] = [];
-  filmesBemAvaliados: Filme[] = [];
+export class FilmeListagemComponent implements OnInit {
+  filmesFavoritos: Filme[] = [];
 
-  constructor(private filmeService: FilmeService) {
-    this.filme = new Filme(0, '', '');
-    //this.criarPoster();
-  }
-  
-
-  criarPoster() {
-    this.filmeService.criar(this.filme).subscribe((filme) => {
-      console.log('filme: ' + filme.results[0].title);
-    });
-  }
-
-  // aposAPromise(filmes: Filme[]): void {
-  //   this.filmes = filmes;
-}
-
-/*import { Component, OnInit } from '@angular/core';
-import { Nota } from '../nota';
-import { NotaService } from '../nota.service';
-
-@Component({
-  selector: 'app-listar-notas',
-  templateUrl: './listar-notas.component.html',
-  styleUrls: ['./listar-notas.component.css'],
-})
-export class ListarNotasComponent implements OnInit {
-  notas: Nota[] = [];
-
-  constructor(private notaService: NotaService) {}
+  constructor(private localStorage: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.notaService.selecionarTodos().subscribe((notas: Nota[]) => {
-      this.notas = notas;
-    });
+    this.filmesFavoritos = this.localStorage.carregarFavoritos();
   }
 }
-*/
